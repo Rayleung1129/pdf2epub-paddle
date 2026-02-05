@@ -244,12 +244,17 @@ def create_epub(title: str, results: List[Dict], output_file: str, image_dir: st
     any_header_pattern = re.compile(r"^(#{1,2})\s+(.+)$")
 
     for line in md_lines:
+        # Clean up LaTeX-style footnotes ($ ^{①} $ -> <sup>①</sup>)
+        # Matches $ ^{...} $ and replaces with <sup>...</sup>
+        line = re.sub(r"\$\s*\^\{(.+?)\}\s*\$", r"", line)
+
         # Check if line is a header
         match = any_header_pattern.match(line)
         if match:
             # Check if it is a MAJOR header that warrants a new file (Chapter)
-            if major_header_pattern.match(line):
-                # Save previous chapter
+            major_match = major_header_pattern.match(line)
+            if major_match:
+                # If we have content for the previous chapter, save it
                 if current_chapter_content:
                     # Determine filename
                     safe_title = "".join(
