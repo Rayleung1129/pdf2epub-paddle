@@ -12,7 +12,7 @@ from ebooklib import epub
 from typing import List, Dict, Any
 
 # --- Configuration ---
-API_URL = "https://s9a8lfu1jd2efbl7.aistudio-app.com/layout-parsing"
+API_URL = "https://4905fcrcb7z2f9j1.aistudio-app.com/layout-parsing"
 # Environment variable for API token
 API_TOKEN = os.getenv("PADDLE_API_TOKEN", "")
 
